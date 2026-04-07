@@ -80,7 +80,8 @@ class DocumentLoader:
         pdf = fitz.open(str(file_path))
 
         for page_num in range(len(pdf)):
-            text = pdf[page_num].get_text().strip()
+            raw_text = pdf[page_num].get_text("text")
+            text = raw_text.strip() if isinstance(raw_text, str) else ""
             if text:
                 documents.append(Document(
                     content=text,
